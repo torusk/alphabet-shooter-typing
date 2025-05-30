@@ -34,24 +34,51 @@
         height: auto;
       }
 
-      .ui {
-        margin-top: 20px;
+      .score-container {
         display: flex;
-        justify-content: space-between;
+        justify-content: center;
         align-items: center;
-        width: 100%;
-        max-width: 800px;
+        gap: 30px;
+        margin-bottom: 10px;
         flex-wrap: wrap;
-        gap: 10px;
       }
 
       .score,
-      .level {
-        font-size: clamp(16px, 3vw, 24px);
+      .high-score {
+        font-size: clamp(18px, 3.5vw, 24px);
         font-weight: bold;
         text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-        flex: 1;
-        min-width: 120px;
+        text-align: center;
+        padding: 8px 16px;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+      }
+
+      .high-score {
+        color: #ffd700;
+        border: 2px solid #ffd700;
+      }
+
+      .new-record {
+        font-size: 24px;
+        font-weight: bold;
+        color: #ffd700;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        margin-bottom: 15px;
+        animation: pulse 1s infinite;
+      }
+
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.1);
+        }
+        100% {
+          transform: scale(1);
+        }
       }
 
       .game-over {
@@ -75,12 +102,40 @@
         font-size: 18px;
         border-radius: 8px;
         cursor: pointer;
-        margin-top: 20px;
         transition: background 0.3s;
+        width: 200px;
       }
 
       .restart-btn:hover {
         background: #5a6fd8;
+      }
+
+      .share-btn {
+        background: #1da1f2;
+        color: white;
+        border: none;
+        padding: 15px 30px;
+        font-size: 18px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background 0.3s;
+        text-decoration: none;
+        display: inline-block;
+        width: 200px;
+        text-align: center;
+      }
+
+      .share-btn:hover {
+        background: #0d8bd9;
+      }
+
+      .button-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 15px;
+        margin-top: 20px;
       }
 
       .instructions {
@@ -92,21 +147,30 @@
   </head>
   <body>
     <div class="game-container">
+      <div class="score-container">
+        <div class="score">文字数: <span id="score">0</span></div>
+        <div class="high-score">ハイスコア: <span id="highScore">0</span></div>
+      </div>
       <div class="instructions">
-        キーボードでアルファベットを入力して、降ってくるブロックを撃ち落とそう！
+        キーボード入力で、降ってくるアルファベットを撃ち落とそう！
       </div>
       <canvas id="gameCanvas" width="800" height="600"></canvas>
-      <div class="ui">
-        <div class="score">文字数: <span id="score">0</span></div>
-        <div class="level">レベル: <span id="level">1</span></div>
-      </div>
 
       <div class="game-over" id="gameOver">
         <h2>ゲームオーバー</h2>
+        <div id="newRecord" class="new-record" style="display: none">
+          🎉 新記録達成！ 🎉
+        </div>
         <p>最終文字数: <span id="finalScore">0</span></p>
-        <button class="restart-btn" onclick="restartGame()">
-          もう一度プレイ
-        </button>
+        <p>ハイスコア: <span id="finalHighScore">0</span></p>
+        <div class="button-container">
+          <button class="restart-btn" onclick="restartGame()">
+            もう一度プレイ (Enter)
+          </button>
+          <a class="share-btn" id="shareBtn" href="#" target="_blank">
+            𝕏で共有
+          </a>
+        </div>
       </div>
     </div>
 
