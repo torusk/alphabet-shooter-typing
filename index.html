@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>アルファベット シューティング タイピングゲーム</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 20px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        font-family: "Arial", sans-serif;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        box-sizing: border-box;
+      }
+
+      .game-container {
+        text-align: center;
+        color: white;
+        width: 100%;
+        max-width: 900px;
+      }
+
+      canvas {
+        border: 3px solid #fff;
+        border-radius: 10px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        background: #000;
+        max-width: 100%;
+        height: auto;
+      }
+
+      .ui {
+        margin-top: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        max-width: 800px;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .score,
+      .level {
+        font-size: clamp(16px, 3vw, 24px);
+        font-weight: bold;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        flex: 1;
+        min-width: 120px;
+      }
+
+      .game-over {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: rgba(0, 0, 0, 0.8);
+        color: white;
+        padding: 40px;
+        border-radius: 15px;
+        text-align: center;
+        display: none;
+      }
+
+      .restart-btn {
+        background: #667eea;
+        color: white;
+        border: none;
+        padding: 15px 30px;
+        font-size: 18px;
+        border-radius: 8px;
+        cursor: pointer;
+        margin-top: 20px;
+        transition: background 0.3s;
+      }
+
+      .restart-btn:hover {
+        background: #5a6fd8;
+      }
+
+      .instructions {
+        margin-bottom: 20px;
+        font-size: 18px;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="game-container">
+      <div class="instructions">
+        キーボードでアルファベットを入力して、降ってくるブロックを撃ち落とそう！
+      </div>
+      <canvas id="gameCanvas" width="800" height="600"></canvas>
+      <div class="ui">
+        <div class="score">文字数: <span id="score">0</span></div>
+        <div class="level">レベル: <span id="level">1</span></div>
+      </div>
+
+      <div class="game-over" id="gameOver">
+        <h2>ゲームオーバー</h2>
+        <p>最終文字数: <span id="finalScore">0</span></p>
+        <button class="restart-btn" onclick="restartGame()">
+          もう一度プレイ
+        </button>
+      </div>
+    </div>
+
+    <script src="game.js"></script>
+  </body>
+</html>
