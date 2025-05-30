@@ -11,6 +11,7 @@ let gameState = {
   isGameOver: false, // ゲームオーバー状態
   isPaused: false, // ポーズ状態（現在未使用）
   highScore: localStorage.getItem("alphabetShooterHighScore") || 0, // ハイスコア
+  soundEnabled: localStorage.getItem("alphabetShooterSoundEnabled") !== "false", // 音声オン・オフ状態
 };
 
 /**
@@ -26,6 +27,9 @@ const audioContext = new (window.AudioContext || window.webkitAudioContext)();
  * @param {string} type - 波形タイプ（sine, square, sawtooth, triangle）
  */
 function playSound(frequency, duration, type = "sine") {
+  // 音声がオフの場合は再生しない
+  if (!gameState.soundEnabled) return;
+
   const oscillator = audioContext.createOscillator();
   const gainNode = audioContext.createGain();
 
@@ -342,6 +346,30 @@ function updateUI() {
 
   // ハイスコア表示を更新
   document.getElementById("highScore").textContent = gameState.highScore;
+
+  // 音声ボタンの表示を更新
+  updateSoundButton();
+}
+
+/**
+ * 音声のオン・オフを切り替える関数
+ */
+function toggleSound() {
+  gameState.soundEnabled = !gameState.soundEnabled;
+  localStorage.setItem("alphabetShooterSoundEnabled", gameState.soundEnabled);
+  updateSoundButton();
+}
+
+/**
+ * 音声ボタンの表示を更新する関数
+ */
+function updateSoundButton() {
+  const soundButton = document.getElementById("soundToggle");
+  if (soundButton) {
+    soundButton.textContent = gameState.soundEnabled
+      ? "🔊 音声ON"
+      : "🔇 音声OFF";
+  }
 }
 
 /**

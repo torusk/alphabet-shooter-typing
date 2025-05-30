@@ -143,6 +143,29 @@
         font-size: 18px;
         text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
       }
+
+      .sound-toggle-btn {
+        background: rgba(255, 255, 255, 0.2);
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        border-radius: 8px;
+        color: white;
+        padding: 8px 16px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+      }
+
+      .sound-toggle-btn:hover {
+        background: rgba(255, 255, 255, 0.3);
+        border-color: rgba(255, 255, 255, 0.5);
+        transform: translateY(-2px);
+      }
+
+      .sound-toggle-btn:active {
+        transform: translateY(0);
+      }
     </style>
   </head>
   <body>
@@ -150,6 +173,13 @@
       <div class="score-container">
         <div class="score">文字数: <span id="score">0</span></div>
         <div class="high-score">ハイスコア: <span id="highScore">0</span></div>
+        <button
+          class="sound-toggle-btn"
+          id="soundToggle"
+          onclick="toggleSound()"
+        >
+          🔊 音声ON
+        </button>
       </div>
       <div class="instructions">
         キーボード入力で、降ってくるアルファベットを撃ち落とそう！
